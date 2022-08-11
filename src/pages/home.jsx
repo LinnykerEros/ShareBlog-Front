@@ -1,8 +1,9 @@
-import { Post } from "./components/Post";
-import { Header } from "./components/Header";
-import { SideBar } from "./components/SideBar";
-import "./global.css";
-import styles from "./styles/App.module.css";
+import { Post } from "../components/Post";
+import { Header } from "../components/Header";
+import { SideBar } from "../components/SideBar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "../global.css";
+import styles from "../styles/Home.module.css";
 
 const posts = [
   {
@@ -47,7 +48,7 @@ const posts = [
   },
 ];
 
-function App() {
+function Home() {
   return (
     <div className="App">
       <Header />
@@ -64,11 +65,10 @@ function App() {
               ></Post>
             );
           })}
-          {/* <Post></Post> */}
         </main>
       </div>
     </div>
   );
 }
 
-export default App;
+export default Home;

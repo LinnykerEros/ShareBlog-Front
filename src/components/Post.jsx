@@ -18,14 +18,23 @@ export function Post({ author, content, publishedAt }) {
   const handleNewCommentChange = (e) => {
     setNewCommentText(e.target.value);
   };
+
+  // const handleNewCommentInvalid = (e) => {
+  //   console.log(e.target.value);
+  //   if(e.target.value)
+  // };
+
   const deleteComment = (commentToDelete) => {
     //react nnunca altera uma informação, ele cria uma nova informação
     // e salva dentro do estado!
     const commentsWithoutDeleteOne = comments.filter((comment) => {
-      return comment != commentToDelete;
+      return comment !== commentToDelete;
     });
     setComments(commentsWithoutDeleteOne);
   };
+
+  const isNewCommentEmpty = newCommentText.length === 0 ? true : false;
+
   return (
     <article className={styles.post}>
       <header>
@@ -72,7 +81,9 @@ export function Post({ author, content, publishedAt }) {
         />
 
         <footer>
-          <button type="submit">Publicar</button>
+          <button type="submit" disabled={isNewCommentEmpty}>
+            Publicar
+          </button>
         </footer>
       </form>
 
