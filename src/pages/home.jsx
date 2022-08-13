@@ -1,7 +1,7 @@
 import { Post } from "../components/Post";
 import { Header } from "../components/Header";
 import { SideBar } from "../components/SideBar";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import "../global.css";
 import styles from "../styles/Home.module.css";
 

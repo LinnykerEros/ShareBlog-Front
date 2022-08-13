@@ -1,17 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./app.js";
+import App from "./app.jsx";
 import { ChakraProvider } from "@chakra-ui/react";
+import { AuthProvider } from "./contexts/AuthContext.jsx";
 import { theme } from "./styles/theme";
-import Login from "./pages/login";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <ChakraProvider theme={theme}>
-    <React.StrictMode>
-      <App />
-      {/* <Login /> */}
-    </React.StrictMode>
-  </ChakraProvider>
+  <AuthProvider>
+    <ChakraProvider theme={theme}>
+      <React.StrictMode>
+        <App />
+        {/* <SignIn /> */}
+      </React.StrictMode>
+    </ChakraProvider>
+  </AuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
