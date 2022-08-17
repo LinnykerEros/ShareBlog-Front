@@ -2,8 +2,10 @@ import { PencilLine } from "phosphor-react";
 
 import styles from "../styles/SideBar.module.css";
 import { Avatar } from "./Avatar";
-
+import { AuthContext } from "../contexts/AuthContext";
+import { useContext } from "react";
 export function SideBar() {
+  const { user } = useContext(AuthContext);
   return (
     <aside className={styles.sidebar}>
       <img
@@ -12,10 +14,10 @@ export function SideBar() {
         alt=""
       />
       <div className={styles.profile}>
-        <Avatar hasBorder image={"https://github.com/LinnykerEros.png"} />
+        <Avatar hasBorder />
 
-        <strong>Eros Linnyker</strong>
-        <span>Web Developer</span>
+        <strong>{user?.name}</strong>
+        <span>{user?.profession}</span>
       </div>
       <footer className={styles.footer}>
         <a href="#">

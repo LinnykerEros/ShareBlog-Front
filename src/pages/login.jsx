@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
-
+import { getUser } from "../service/userService.js";
 function SignIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -19,6 +19,9 @@ function SignIn() {
       email,
       password,
     };
+
+    // const users = await getUser();
+    // console.log(users);
 
     await signIn(data);
 
@@ -55,7 +58,7 @@ function SignIn() {
             Não possui uma conta?{" "}
             <Text
               as="a"
-              onClick={navigate("/register")}
+              // onClick={navigate("/register")}
               href="#"
               textDecoration="underline"
             >

@@ -1,7 +1,13 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
-const instance = axios.create({
-  baseURL: process.env.PUBLIC_API_BASE_URL,
+const cookie = Cookies.get("reactauth.token");
+
+const api = axios.create({
+  baseURL: process.env.REACT_APP_BASE_URL,
+  headers: {
+    Authorization: `Bearer ${cookie}`,
+  },
 });
 
-export default instance;
+export { api };
