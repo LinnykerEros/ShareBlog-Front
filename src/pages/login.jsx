@@ -12,6 +12,11 @@ function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signIn } = useContext(AuthContext);
+
+  const NavigateForHome = () => {
+    navigate("/app");
+  };
+
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -20,18 +25,9 @@ function SignIn() {
       password,
     };
 
-    if (!data.email || !data.password) {
-      toast.error("Email e Senha obrigatórios!", {
-        autoClose: 2000,
-      });
-    } else {
-      await signIn(data);
-
-      navigate("/app");
+    if (data.email && data.password) {
+      await signIn(data, NavigateForHome);
     }
-
-    // const users = await getUser();
-    // console.log(users);
   }
 
   return (
