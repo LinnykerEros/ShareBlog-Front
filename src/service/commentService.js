@@ -6,6 +6,10 @@ async function getComments() {
   return comments.data;
 }
 
+async function deleteComment(id) {
+  return await api.delete(`/comment/${id}`);
+}
+
 async function createComment(content, userId, postId) {
   console.log(content, userId, postId);
   const comment = await api.post("/comment", {
@@ -16,4 +20,4 @@ async function createComment(content, userId, postId) {
   return comment.data;
 }
 
-export { getComments, createComment };
+export { getComments, createComment, deleteComment };

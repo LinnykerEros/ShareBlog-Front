@@ -4,6 +4,20 @@ async function getPosts() {
   const posts = await api.get("/post");
   return posts.data;
 }
+async function getPostById(id) {
+  const post = await api.get(`/post/${id}`);
+  return post.data;
+}
+
+async function updatePost(id, content, userId, postId) {
+  const post = await api.put(`/post/${id}`, {
+    content,
+    userId,
+    postId,
+  });
+
+  return post;
+}
 
 async function createPost(content, userId) {
   const posts = await api.post("/post", {
@@ -12,4 +26,4 @@ async function createPost(content, userId) {
   });
   return posts.data;
 }
-export { getPosts, createPost };
+export { getPosts, createPost, getPostById, updatePost };

@@ -6,4 +6,25 @@ async function getUser() {
   return users.data;
 }
 
-export { getUser };
+async function createUser(name, profession, email, password) {
+  const user = await api.post("/users", {
+    name,
+    profession,
+    email,
+    password,
+  });
+
+  return user.data;
+}
+
+async function updateUser(id, name, profession, email, password) {
+  const user = await api.put(`/users/${id}`, {
+    name,
+    profession,
+    email,
+    password,
+  });
+  return user.data;
+}
+
+export { getUser, createUser, updateUser };
