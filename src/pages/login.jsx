@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { getUser } from "../service/userService.js";
+import { toast } from "react-toastify";
 function SignIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signIn } = useContext(AuthContext);
-
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -20,12 +20,18 @@ function SignIn() {
       password,
     };
 
+    if (!data.email || !data.password) {
+      toast.error("Email e Senha obrigatórios!", {
+        autoClose: 2000,
+      });
+    } else {
+      await signIn(data);
+
+      navigate("/app");
+    }
+
     // const users = await getUser();
     // console.log(users);
-
-    await signIn(data);
-
-    navigate("/app");
   }
 
   return (
@@ -56,12 +62,7 @@ function SignIn() {
           />
           <Text>
             Não possui uma conta?{" "}
-            <Text
-              as="a"
-              // onClick={navigate("/register")}
-              href="#"
-              textDecoration="underline"
-            >
+            <Text as="a" href="/register" textDecoration="underline">
               Cadastre-se
             </Text>{" "}
           </Text>
