@@ -6,6 +6,12 @@ async function getUser() {
   return users.data;
 }
 
+async function getUserById(id) {
+  const users = await api.get(`/users/${id}`);
+
+  return users.data;
+}
+
 async function createUser(name, profession, email, password) {
   const user = await api.post("/users", {
     name,
@@ -27,4 +33,4 @@ async function updateUser(id, name, profession, email, password) {
   return user.data;
 }
 
-export { getUser, createUser, updateUser };
+export { getUser, getUserById, createUser, updateUser };
