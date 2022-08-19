@@ -1,10 +1,15 @@
 .header {
   background: var(--grey-800);
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
+  justify-content: flex-end;
   padding: 1.25rem 0;
 
   height: 80px;
+}
+
+.signOut {
+  margin-right: 8rem;
 }
 
 .header img {

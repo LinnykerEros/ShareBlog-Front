@@ -40,6 +40,19 @@
   font-size: 0.875rem;
   color: var(--gray-400);
 }
+.editButton {
+  background: transparent;
+  border: none;
+  color: var(--gray-400);
+  cursor: pointer;
+
+  line-height: 0;
+  border-radius: 2px;
+}
+
+.editButton:hover {
+  color: var(--green-500);
+}
 
 .author {
   display: flex;
