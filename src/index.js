@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import App from "./app.jsx";
 import { ChakraProvider } from "@chakra-ui/react";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { theme } from "./styles/theme";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -12,6 +14,7 @@ root.render(
       <React.StrictMode>
         <App />
         {/* <SignIn /> */}
+        <ToastContainer />
       </React.StrictMode>
     </ChakraProvider>
   </AuthProvider>

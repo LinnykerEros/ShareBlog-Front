@@ -1,7 +1,9 @@
-// import { destroyCookie } from "nookies";
+import Cookies from "js-cookie";
+import { Navigate } from "react-router-dom";
+const singOut = () => {
+  Cookies.remove("reactauth.token");
+  <Navigate to="/" replace />;
+  window.location.reload();
+};
 
-// const singOut = () => {
-//   destroyCookie(undefined, "reactauth.token");
-// };
-
-// export { singOut };
+export { singOut };
