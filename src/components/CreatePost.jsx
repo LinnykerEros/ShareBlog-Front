@@ -6,7 +6,7 @@ import ptBR from "moment/locale/pt-br";
 import { useState } from "react";
 import { createPost } from "../service/postService";
 
-export function CreatePost({ author, profession, userID }) {
+export function CreatePost({ author, profession, userID, updatingState }) {
   const [contentPost, setContentPost] = useState("");
   // const [comments, setComments] = useState(["Post muito bacana"]);
   const [newPostText, setNewPostText] = useState("");
@@ -16,6 +16,7 @@ export function CreatePost({ author, profession, userID }) {
     try {
       await createPost(contentPost, userID);
       setContentPost("");
+      updatingState();
     } catch (err) {
       console.log(err);
     }
