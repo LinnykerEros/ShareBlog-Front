@@ -4,6 +4,9 @@ import Cookies from "js-cookie";
 import { singOut } from "../utils/singOut";
 import { Navigate } from "react-router-dom";
 import parseJwt from "../utils/parseJWT";
+import { getUserById } from "../service/userService";
+import { toast } from "react-toastify";
+import { isElementOfType } from "react-dom/test-utils";
 
 const AuthContext = createContext({});
 
@@ -15,6 +18,11 @@ function AuthProvider({ children }) {
 
   const isAuthenticated = !!user;
 
+  const fetchUser = async () => {
+    const data = await getUserById(user.id);
+    return setUser(data);
+  };
+
   useEffect(() => {
     const token = Cookies.get("reactauth.token");
     (async () => {
@@ -25,6 +33,7 @@ function AuthProvider({ children }) {
         await api
           .get(`/users/${id}`)
           .then((res) => {
+            console.log(res.data);
             setUser(res.data);
             setIsLoading(false);
           })
@@ -43,7 +52,7 @@ function AuthProvider({ children }) {
     singOut();
   };
 
-  async function signIn({ email, password }) {
+  async function signIn({ email, password }, NavigateForHome) {
     try {
       const res = await api.post("/token", {
         email,
@@ -60,15 +69,22 @@ function AuthProvider({ children }) {
 
       api.defaults.headers["Authorization"] = `Bearer ${token}`;
 
-      return <Navigate to="/" replace />;
+      return NavigateForHome();
     } catch (err) {
-      console.log(err);
+      toast.error(err.response.data.error, { autoClose: 2000 });
     }
   }
 
   return (
     <AuthContext.Provider
-      value={{ signIn, isAuthenticated, user, isLoading, signOutUser }}
+      value={{
+        signIn,
+        isAuthenticated,
+        user,
+        isLoading,
+        signOutUser,
+        fetchUser,
+      }}
     >
       {children}
     </AuthContext.Provider>
