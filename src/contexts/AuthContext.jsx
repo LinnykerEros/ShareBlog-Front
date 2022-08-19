@@ -1,7 +1,7 @@
 import { api } from "../config/axios";
 import { createContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-// import { singOut } from "../utils/singOut";
+import { singOut } from "../utils/singOut";
 import { Navigate } from "react-router-dom";
 import parseJwt from "../utils/parseJWT";
 
@@ -25,12 +25,12 @@ function AuthProvider({ children }) {
         await api
           .get(`/users/${id}`)
           .then((res) => {
-            setUser(parseJwt(token));
+            setUser(res.data);
             setIsLoading(false);
           })
           .catch((error) => {
             setIsLoading(false);
-            // singOut();
+            singOut();
           });
       } else {
         setUser(undefined);
@@ -38,12 +38,10 @@ function AuthProvider({ children }) {
     })();
   }, []);
 
-  // const signOutUser = () => {
-  //   setIsLoading(false);
-  //   setUser(undefined);
-  //   // singOut();
-  //   return <Navigate to="/" replace />;
-  // };
+  const signOutUser = () => {
+    setUser(undefined);
+    singOut();
+  };
 
   async function signIn({ email, password }) {
     try {
@@ -57,7 +55,7 @@ function AuthProvider({ children }) {
         expires: 60 * 60 * 24 * 30,
         path: "/",
       });
-
+      // console.log(parseJwt(token).id);
       setUser(parseJwt(token));
 
       api.defaults.headers["Authorization"] = `Bearer ${token}`;
@@ -69,7 +67,9 @@ function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ signIn, isAuthenticated, user, isLoading }}>
+    <AuthContext.Provider
+      value={{ signIn, isAuthenticated, user, isLoading, signOutUser }}
+    >
       {children}
     </AuthContext.Provider>
   );
