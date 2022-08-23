@@ -42,16 +42,16 @@
 .commentContent header button {
   background: transparent;
   border: none;
-  color: var(--gray-400);
+  color: white;
   cursor: pointer;
 
   line-height: 0;
   border-radius: 2px;
 }
 
-.commentContent header button:hover {
-  color: var(--red-500);
-}
+/* .commentContent header button:hover {
+  color: var(--blue-500);
+} */
 
 .commentContent p {
   margin-top: 1rem;
@@ -61,7 +61,7 @@
 .commentBox footer {
   margin-top: 1rem;
 }
-.commentBox footer button {
+.aplaudir {
   background: transparent;
   border: 0;
   color: var(--gray-400);
@@ -71,14 +71,14 @@
   align-items: center;
 }
 
-.commentBox footer button:hover {
-  color: var(--green-300);
+.aplaudir:hover {
+  color: var(--blue-400);
 }
 
-.commentBox footer button svg {
+.aplaudir svg {
   margin-right: 0.5rem;
 }
-.commentBox footer button span::before {
+.aplaudir span::before {
   content: "\2022";
   padding: 0 0.25rem;
 }

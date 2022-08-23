@@ -48,10 +48,11 @@
 
   line-height: 0;
   border-radius: 2px;
+  box-shadow: none;
 }
 
 .editButton:hover {
-  color: var(--green-500);
+  color: var(--blue-500);
 }
 
 .author {
@@ -75,6 +76,7 @@
 .commentForm {
   width: 100%;
   margin-top: 1.5rem;
+
   /* padding-top: 1.5rem; */
   /* border-top: 1px solid var(--gray-600); */
 }
@@ -88,14 +90,14 @@
   width: 100%;
   background: var(--gray-900);
   border: 0;
-  resize: none;
-  height: 6rem;
+  min-height: 6rem;
+  overflow: hidden;
   padding: 1rem;
   border-radius: 8px;
   color: var(--gray-100);
   line-height: 1.4;
-
   margin-top: 1rem;
+  resize: none;
 }
 
 .commentForm footer {
@@ -113,7 +115,7 @@
   margin-top: 1rem;
   border-radius: 8px;
   border: 0;
-  background: var(--green-500);
+  background: var(--blue-500);
   color: var(--white);
   font-weight: bold;
   cursor: pointer;
@@ -121,7 +123,7 @@
 }
 
 .commentForm button[type="submit"]:not(:disabled):hover {
-  background: var(--green-300);
+  background: var(--blue-400);
 }
 
 .commentForm button:disabled {
