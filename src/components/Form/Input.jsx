@@ -1,6 +1,6 @@
 import { Input as ChakraInput, FormLabel, FormControl } from "@chakra-ui/react";
 
-export function Input({ name, label, ...rest }) {
+export function Input({ name, label, height, ...rest }) {
   return (
     <FormControl>
       {label && (
@@ -18,6 +18,7 @@ export function Input({ name, label, ...rest }) {
           bgColor: "gray.900",
         }}
         size="lg"
+        height={height}
         {...rest}
       />
     </FormControl>
