@@ -20,8 +20,11 @@ import { AuthContext } from "../contexts/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { getUserById, updateUser } from "../service/userService";
 import { toast } from "react-toastify";
+import { UserPosts } from "../pages/userPosts";
+import { useNavigate, NavLink } from "react-router-dom";
 
 export function SideBar({ updatingState }) {
+  const navigate = useNavigate();
   const { user, fetchUser } = useContext(AuthContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -30,14 +33,14 @@ export function SideBar({ updatingState }) {
   const [profession, setProfession] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
+
   // console.log(user);
   useEffect(() => {
     const token = Cookies.get("reactauth.token");
-
     (async () => {
       if (token) {
         const id = parseJwt(token).id;
-        console.log(id);
+        // console.log(id);
         const users = await getUserById(id);
         setName(users.name);
         setEmail(users.email);
@@ -88,11 +91,16 @@ export function SideBar({ updatingState }) {
         <span>{user?.profession}</span>
       </div>
       <footer className={styles.footer}>
-        <Button onClick={onOpen} className={styles.buttonChakra}>
+        <Button
+          colorScheme="blue"
+          onClick={onOpen}
+          className={styles.buttonChakra}
+        >
           {" "}
           <PencilLine size={20} />
           Editar seu perfil
         </Button>
+
         <Modal isOpen={isOpen} onClose={onClose}>
           {/* <ModalOverlay /> */}
           <ModalContent bg={"#202024"} alignItems={"center"} gap={2}>
@@ -150,10 +158,14 @@ export function SideBar({ updatingState }) {
             <ModalCloseButton />
 
             <ModalFooter>
-              <Button colorScheme="pink" mr={3} onClick={onClose}>
+              <Button colorScheme="red" mr={3} onClick={onClose}>
                 Close
               </Button>
-              <Button onClick={handleUpdateUser} variant="ghost">
+              <Button
+                colorScheme="blue"
+                onClick={handleUpdateUser}
+                // variant="ghost"
+              >
                 Aplicar alterações
               </Button>
             </ModalFooter>
