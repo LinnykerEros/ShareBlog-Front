@@ -9,14 +9,17 @@ async function getPostById(id) {
   return post.data;
 }
 
-async function updatePost(id, content, userId, postId) {
+async function updatePost(id, content, userId) {
   const post = await api.put(`/post/${id}`, {
     content,
     userId,
-    postId,
   });
 
   return post;
+}
+
+async function deletePost(id) {
+  return await api.delete(`/post/${id}`);
 }
 
 async function createPost(content, userId) {
@@ -26,4 +29,4 @@ async function createPost(content, userId) {
   });
   return posts.data;
 }
-export { getPosts, createPost, getPostById, updatePost };
+export { getPosts, createPost, getPostById, updatePost, deletePost };

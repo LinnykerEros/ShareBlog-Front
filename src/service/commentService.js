@@ -10,8 +10,17 @@ async function deleteComment(id) {
   return await api.delete(`/comment/${id}`);
 }
 
+async function updateComment(id, content, userId, postId) {
+  const comment = await api.put(`/comment/${id}`, {
+    content,
+    userId,
+    postId,
+  });
+
+  return comment.data;
+}
+
 async function createComment(content, userId, postId) {
-  console.log(content, userId, postId);
   const comment = await api.post("/comment", {
     content,
     userId,
@@ -20,4 +29,4 @@ async function createComment(content, userId, postId) {
   return comment.data;
 }
 
-export { getComments, createComment, deleteComment };
+export { getComments, createComment, deleteComment, updateComment };
