@@ -1,15 +1,10 @@
 import { Avatar } from "./Avatar";
 import styles from "../styles/CreatePost.module.css";
-import { Comment } from "./Comment";
-import moment from "moment";
-import ptBR from "moment/locale/pt-br";
 import { useState } from "react";
 import { createPost } from "../service/postService";
-
+import { autoResize } from "../utils/autoResize";
 export function CreatePost({ author, profession, userID, updatingState }) {
   const [contentPost, setContentPost] = useState("");
-  // const [comments, setComments] = useState(["Post muito bacana"]);
-  const [newPostText, setNewPostText] = useState("");
 
   const handleCreateNewPost = async (e) => {
     e.preventDefault();
@@ -21,6 +16,16 @@ export function CreatePost({ author, profession, userID, updatingState }) {
       console.log(err);
     }
   };
+
+  // function autoResize() {
+  //   let objTextArea = document.getElementById("createPost");
+  //   while (objTextArea?.scrollHeight > objTextArea?.offsetHeight) {
+  //     objTextArea.rows += 1;
+  //   }
+  //   while (objTextArea?.scrollHeight < objTextArea?.offsetHeight) {
+  //     objTextArea.rows -= 1;
+  //   }
+  // }
 
   const isNewPostEmpty = contentPost === "" ? true : false;
 
@@ -45,10 +50,12 @@ export function CreatePost({ author, profession, userID, updatingState }) {
         <form onSubmit={handleCreateNewPost} className={styles.commentForm}>
           {/* <strong>Faça uma publicação!</strong> */}
           <textarea
+            id="createPost"
             name="comment"
             placeholder="Faça uma publicação"
             value={contentPost}
             onChange={(e) => setContentPost(e.target.value)}
+            onKeyDown={autoResize("createPost")}
             required
           />
 
