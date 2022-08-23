@@ -33,7 +33,6 @@ function AuthProvider({ children }) {
         await api
           .get(`/users/${id}`)
           .then((res) => {
-            console.log(res.data);
             setUser(res.data);
             setIsLoading(false);
           })
