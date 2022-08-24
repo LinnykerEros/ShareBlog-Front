@@ -4,15 +4,12 @@ import parseJwt from "../utils/parseJWT";
 import { PencilLine } from "phosphor-react";
 import {
   Modal,
-  ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalFooter,
-  ModalBody,
   ModalCloseButton,
   useDisclosure,
   Button,
-  Box,
 } from "@chakra-ui/react";
 import { Input } from "../components/Form/Input";
 import { Avatar } from "./Avatar";
@@ -20,12 +17,11 @@ import { AuthContext } from "../contexts/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { getUserById, updateUser } from "../service/userService";
 import { toast } from "react-toastify";
-import { UserPosts } from "../pages/userPosts";
-import { useNavigate, NavLink } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
-export function SideBar({ updatingState }) {
-  const navigate = useNavigate();
-  const { user, fetchUser } = useContext(AuthContext);
+export function SideBar({ updatingState, userId }) {
+  // const navigate = useNavigate();
+  const { user, fetchUser, signOutUser } = useContext(AuthContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [name, setName] = useState();
@@ -53,7 +49,23 @@ export function SideBar({ updatingState }) {
     e.preventDefault();
 
     try {
-      if (confirmPassword === password) {
+      if (password) {
+        if (confirmPassword === password) {
+          await updateUser(user.id, name, profession, email, password);
+          toast.success(
+            "Usuário atualizado com sucesso, você será deslogado!",
+            {
+              autoClose: 2000,
+            },
+            onClose(),
+            setTimeout(signOutUser, 3000)
+          );
+        } else {
+          toast.error("Verifique a senha e tente novamente!", {
+            autoClose: 2000,
+          });
+        }
+      } else {
         await updateUser(user.id, name, profession, email, password);
         toast.success(
           "Usuário atualizado com sucesso",
@@ -64,10 +76,6 @@ export function SideBar({ updatingState }) {
         );
         fetchUser();
         updatingState();
-      } else {
-        toast.error("Verifique a senha e tente novamente!", {
-          autoClose: 2000,
-        });
       }
     } catch (err) {
       console.log(err.response.data.message);
@@ -76,7 +84,7 @@ export function SideBar({ updatingState }) {
       }
     }
   };
-
+  const verifyUserId = user?.id === userId;
   return (
     <aside className={styles.sidebar}>
       <img
@@ -85,7 +93,7 @@ export function SideBar({ updatingState }) {
         alt=""
       />
       <div className={styles.profile}>
-        <Avatar hasBorder />
+        <Avatar verifyUserId={verifyUserId} hasBorder />
 
         <strong>{user?.name}</strong>
         <span>{user?.profession}</span>
