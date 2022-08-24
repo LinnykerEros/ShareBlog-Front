@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import { Post } from "../components/Post";
 import { Header } from "../components/Header";
 import { SideBar } from "../components/SideBar";
-import { getPosts } from "../service/postService";
 
 function UserPosts() {
   const navigate = useNavigate();
@@ -40,7 +39,7 @@ function UserPosts() {
     <div className="App">
       <Header />
       <div className={styles.wrapper}>
-        <SideBar />
+        <SideBar userId={user?.id} />
 
         <main>
           {post?.post?.map((userPost) => {

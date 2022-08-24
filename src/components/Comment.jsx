@@ -45,10 +45,11 @@ export function Comment({
       console.log(err);
     }
   };
-
+  const verifyUserId = user?.id === userId;
+  console.log(verifyUserId);
   return (
     <div key={id} className={styles.comment}>
-      <Avatar />
+      <Avatar verifyUserId={verifyUserId} />
       <div className={styles.commentBox}>
         <div className={styles.commentContent}>
           <header>

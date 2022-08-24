@@ -35,7 +35,7 @@ function Home() {
     <div className="App">
       <Header />
       <div className={styles.wrapper}>
-        <SideBar updatingState={fetchPosts} />
+        <SideBar userId={user?.id} updatingState={fetchPosts} />
 
         <main>
           <CreatePost

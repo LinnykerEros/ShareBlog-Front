@@ -1,23 +1,11 @@
 import styles from "../styles/Header.module.css";
-import igniteLogo from "../assets/ignite-logo.svg";
-import Cookies from "js-cookie";
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-  Button,
-} from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuItem, Button } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { SignOut } from "phosphor-react";
 import { AuthContext } from "../contexts/AuthContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-
+import ShareBlog from "../assets/logoShareBlog.png";
 export function Header() {
   const { user, signOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -31,8 +19,14 @@ export function Header() {
     <header className={styles.header}>
       {/* <img src={igniteLogo} alt="LogoIgnite" /> */}
       {/* <img src={igniteLogo} alt="LogoIgnite" /> */}
-      <p>ShareBlog</p>
-      <p onClick={() => navigate("/app")}>Home</p>
+      <img
+        onClick={() => navigate("/app")}
+        src={ShareBlog}
+        alt="LogoShareBlog"
+      />
+      <a href="#" onClick={() => navigate("/app")}>
+        Home
+      </a>
       <div>
         <Menu bg="white">
           <MenuButton

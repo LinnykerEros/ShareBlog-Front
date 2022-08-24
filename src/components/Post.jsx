@@ -79,12 +79,13 @@ export function Post({
   };
 
   const isNewCommentEmpty = comentario === "" ? true : false;
+  const verifyUserId = user?.id === userId;
 
   return (
     <article key={postId} className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar hasBorder />
+          <Avatar verifyUserId={verifyUserId} hasBorder />
 
           <div className={styles.authorInfo}>
             <strong>{userName}</strong>

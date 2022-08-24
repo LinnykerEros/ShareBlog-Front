@@ -17,16 +17,6 @@ export function CreatePost({ author, profession, userID, updatingState }) {
     }
   };
 
-  // function autoResize() {
-  //   let objTextArea = document.getElementById("createPost");
-  //   while (objTextArea?.scrollHeight > objTextArea?.offsetHeight) {
-  //     objTextArea.rows += 1;
-  //   }
-  //   while (objTextArea?.scrollHeight < objTextArea?.offsetHeight) {
-  //     objTextArea.rows -= 1;
-  //   }
-  // }
-
   const isNewPostEmpty = contentPost === "" ? true : false;
 
   return (
@@ -34,6 +24,7 @@ export function CreatePost({ author, profession, userID, updatingState }) {
       <header>
         <div className={styles.author}>
           <Avatar
+            verifyUserId
             hasBorder
             image={
               "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
