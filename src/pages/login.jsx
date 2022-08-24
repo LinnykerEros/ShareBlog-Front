@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
-import { getUser } from "../service/userService.js";
-import { toast } from "react-toastify";
+import logoShareBlog from "../assets/logoShareBlog.png";
 function SignIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -31,8 +30,20 @@ function SignIn() {
   }
 
   return (
-    <Flex w="100vw" h="100vh" align="center" justify="center">
+    <Flex
+      display="flex"
+      flexDirection="column"
+      w="100vw"
+      h="100vh"
+      align="center"
+      justify="center"
+    >
       {" "}
+      <img
+        style={{ marginBottom: "3rem", width: "10rem" }}
+        src={logoShareBlog}
+        alt="Logo do app"
+      />
       <Flex
         onSubmit={handleSubmit}
         as="form"
@@ -58,13 +69,23 @@ function SignIn() {
           />
           <Text>
             Não possui uma conta?{" "}
-            <Text as="a" href="/register" textDecoration="underline">
+            <Text
+              transition="all 0.2"
+              _hover={{
+                color: "white",
+                fontWeight: "bold",
+                boxShadow: "none",
+              }}
+              as="a"
+              href="/register"
+              textDecoration="underline"
+            >
               Cadastre-se
             </Text>{" "}
           </Text>
         </Stack>
 
-        <Button type="submit" mt="6" colorScheme="green">
+        <Button type="submit" mt="6" colorScheme="blue">
           Entrar
         </Button>
       </Flex>
