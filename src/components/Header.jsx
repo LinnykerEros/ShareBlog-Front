@@ -9,16 +9,9 @@ import ShareBlog from "../assets/logoShareBlog.png";
 export function Header() {
   const { user, signOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  // const signOut = () => {
-  //   Cookies.remove("reactauth.token");
-  //  return navigate("/");
-
-  // };
 
   return (
     <header className={styles.header}>
-      {/* <img src={igniteLogo} alt="LogoIgnite" /> */}
-      {/* <img src={igniteLogo} alt="LogoIgnite" /> */}
       <img
         onClick={() => navigate("/app")}
         src={ShareBlog}
@@ -53,6 +46,25 @@ export function Header() {
             >
               Minhas publicações
             </MenuItem>
+            {user?.id === 1 ? (
+              <MenuItem
+                fontSize={"1.15rem"}
+                _focus={{ bg: "none" }}
+                _hover={{
+                  bg: "#3182ce",
+                  color: "white",
+                  fontWeight: "bold",
+                  boxShadow: "none",
+                }}
+                boxShadow="none"
+                onClick={() => navigate("/admin")}
+              >
+                Usuários cadastrados
+              </MenuItem>
+            ) : (
+              ""
+            )}
+
             <MenuItem
               gap={150}
               onClick={signOutUser}
