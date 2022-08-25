@@ -45,6 +45,7 @@ function UserPosts() {
           {post?.post?.map((userPost) => {
             return (
               <Post
+                key={userPost.id}
                 postId={userPost.id}
                 userId={userPost.user.id}
                 userName={userPost.user.name}

@@ -84,10 +84,10 @@ export function Register() {
         </Stack>
 
         <Flex justify="space-between">
-          <Button onClick={() => navigate("/")} mt="6" colorScheme="pink">
+          <Button onClick={() => navigate("/")} mt="6" colorScheme="red">
             Voltar
           </Button>
-          <Button onClick={handleSubmit} mt="6" colorScheme="green">
+          <Button onClick={handleSubmit} mt="6" colorScheme="blue">
             Cadastrar
           </Button>
         </Flex>
