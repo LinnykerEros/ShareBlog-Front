@@ -4,6 +4,7 @@ import { SignIn } from "./pages/login";
 import { Register } from "./pages/register";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 import { UserPosts } from "./pages/userPosts";
+import Admin from "./pages/admin";
 function App() {
   return (
     <Router>
@@ -12,6 +13,7 @@ function App() {
           <Route path="/" element={<SignIn />} exact />
           <Route path="/register" element={<Register />} />
           <Route path="/userPosts" element={<UserPosts />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="/app" element={<Home />} />
         </Routes>
       </AuthProvider>
