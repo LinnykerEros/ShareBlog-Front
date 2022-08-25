@@ -33,4 +33,8 @@ async function updateUser(id, name, profession, email, password) {
   return user.data;
 }
 
-export { getUser, getUserById, createUser, updateUser };
+async function deleteUser(id) {
+  return await api.delete(`/users/${id}`);
+}
+
+export { getUser, getUserById, createUser, updateUser, deleteUser };
