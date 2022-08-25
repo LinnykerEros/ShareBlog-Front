@@ -81,6 +81,7 @@ export function Post({
   const isNewCommentEmpty = comentario === "" ? true : false;
   const verifyUserId = user?.id === userId;
 
+  // console.log(verifyAnotherId);
   return (
     <article key={postId} className={styles.post}>
       <header>
@@ -209,7 +210,7 @@ export function Post({
       </div>
 
       <form onSubmit={handleSubmit} className={styles.commentForm}>
-        <strong>Deixe seu feedback!</strong>
+        <strong>Deixe seu comentário!</strong>
         <textarea
           id={postId}
           name="comment"

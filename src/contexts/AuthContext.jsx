@@ -2,17 +2,13 @@ import { api } from "../config/axios";
 import { createContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { singOut } from "../utils/singOut";
-import { Navigate } from "react-router-dom";
 import parseJwt from "../utils/parseJWT";
 import { getUserById } from "../service/userService";
 import { toast } from "react-toastify";
-import { isElementOfType } from "react-dom/test-utils";
 
 const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
-  // const navigate = useNavigate();
-
   const [user, setUser] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -20,6 +16,7 @@ function AuthProvider({ children }) {
 
   const fetchUser = async () => {
     const data = await getUserById(user.id);
+
     return setUser(data);
   };
 
