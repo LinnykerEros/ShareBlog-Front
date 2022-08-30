@@ -2,9 +2,11 @@ import styles from "../styles/Avatar.module.css";
 
 const UserLoged = [
   "https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png",
+
   "https://i.pinimg.com/originals/61/54/76/61547625e01d8daf941aae3ffb37f653.png",
   "https://i.pinimg.com/474x/bd/ee/4c/bdee4c328550aaf21aa9f43fd19e2136.jpg",
   "https://i.pinimg.com/originals/30/db/47/30db479e1558c3ed46b4ed23b3cd98ae.png",
+
   "https://i.pinimg.com/originals/1b/71/b8/1b71b85dd741ad27bffa5c834a7ed797.png",
   "https://pbs.twimg.com/profile_images/1356333120992149505/-qvakEK7_400x400.jpg",
 ];
