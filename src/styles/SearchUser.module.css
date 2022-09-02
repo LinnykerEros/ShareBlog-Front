@@ -1,0 +1,27 @@
+.main {
+  max-width: 73rem;
+  margin: 2rem auto;
+  padding: 5rem 1rem;
+  display: grid;
+  /* grid-template-columns: 256px 1fr; */
+  gap: 2rem;
+  /* align-items: center; */
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 9.3rem;
+  gap: 5rem;
+
+  /* justify-content: space-between; */
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 87.5%;
+  }
+  .main {
+    grid-template-columns: 1fr;
+  }
+}

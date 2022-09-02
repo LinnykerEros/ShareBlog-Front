@@ -10,42 +10,34 @@ import { useNavigate } from "react-router-dom";
 import { Post } from "../components/Post";
 import { Header } from "../components/Header";
 import { SideBar } from "../components/SideBar";
-import { FilterContext } from "../contexts/FilterContext";
 
-function UserPosts() {
+function UserLogedPosts() {
   const navigate = useNavigate();
-  const { userFiltered } = useContext(FilterContext);
+  const { user } = useContext(AuthContext);
   const token = Cookies.get("reactauth.token");
-  const [user, setUser] = useState([]);
-  console.log(userFiltered.id);
+  const [post, setPost] = useState([]);
+
+  async function fetchPosts() {
+    const id = parseJwt(token).id;
+    const data = await getUserById(id);
+    return setPost(data);
+  }
+
   useEffect(() => {
     (async () => {
-      const data = await getUserById(userFiltered.id);
-      setUser(data);
+      if (token) {
+        const id = parseJwt(token).id;
+        const post = await getUserById(id);
+        setPost(post);
+      } else {
+        navigate("/");
+      }
     })();
-  }, []);
-  console.log(user);
-  //   async function fetchPosts() {
-  //     const id = parseJwt(token).id;
-  //     const data = await getUserById(id);
-  //     return setPost(data);
-  //   }
-
-  //   useEffect(() => {
-  //     (async () => {
-  //       if (token) {
-  //         const id = parseJwt(token).id;
-  //         const post = await getUserById(id);
-  //         setPost(post);
-  //       } else {
-  //         navigate("/");
-  //       }
-  //     })();
-  //   }, [token, navigate]);
+  }, [token, navigate]);
 
   return (
     <div className="App">
-      {/* <Header />
+      <Header />
       <div className={styles.wrapper}>
         <SideBar userId={user?.id} />
 
@@ -66,9 +58,9 @@ function UserPosts() {
             );
           })}
         </main>
-      </div> */}
+      </div>
     </div>
   );
 }
 
-export { UserPosts };
+export { UserLogedPosts };
