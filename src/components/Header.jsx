@@ -1,22 +1,66 @@
 import styles from "../styles/Header.module.css";
-import { Menu, MenuButton, MenuList, MenuItem, Button } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Button,
+  Icon,
+  InputGroup,
+  InputRightAddon,
+} from "@chakra-ui/react";
+import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 import { SignOut } from "phosphor-react";
 import { AuthContext } from "../contexts/AuthContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ShareBlog from "../assets/logoShareBlog.png";
+import { Input } from "./Form/Input";
+import { getUser } from "../service/userService";
+import searchUser from "../pages/searchUser";
+import { FilterContext } from "../contexts/FilterContext";
 export function Header() {
   const { user, signOutUser } = useContext(AuthContext);
+  const { filter, setFilter, setIsTrue } = useContext(FilterContext);
+  const [users, setUsers] = useState([]);
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    (async () => {
+      await getUser().then((data) => {
+        setUsers(data);
+        setFilter(data);
+        // console.log(data.filter((obj) => obj.name === "Pedro Michael"));
+      });
+    })();
+  }, []);
 
   return (
     <header className={styles.header}>
-      <img
-        onClick={() => navigate("/app")}
-        src={ShareBlog}
-        alt="LogoShareBlog"
-      />
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <img
+          onClick={() => navigate("/app")}
+          src={ShareBlog}
+          alt="LogoShareBlog"
+        />
+
+        <Input
+          name="Search"
+          placeholder="Pesquise por um usuário"
+          width="20rem"
+          height="3rem"
+          ml="2rem"
+          onChange={(e) =>
+            setFilter(
+              users.filter((user) =>
+                user.name.toLowerCase().includes(e.target.value.toLowerCase())
+              )
+            )
+          }
+          icon={<SearchIcon onClick={() => navigate("/searchUser")} />}
+        />
+      </div>
       <a href="#" onClick={() => navigate("/app")}>
         Home
       </a>
@@ -31,7 +75,7 @@ export function Header() {
           >
             {user?.name}
           </MenuButton>
-          <MenuList bg="transparent">
+          <MenuList bg="white" color="gray.600">
             <MenuItem
               fontSize={"1.15rem"}
               _focus={{ bg: "none" }}
@@ -41,8 +85,10 @@ export function Header() {
                 fontWeight: "bold",
                 boxShadow: "none",
               }}
+              color="gray.600"
+              fontWeight="bold"
               boxShadow="none"
-              onClick={() => navigate("/userPosts")}
+              onClick={() => navigate("/userLogedPosts")}
             >
               Minhas publicações
             </MenuItem>
@@ -56,6 +102,7 @@ export function Header() {
                   fontWeight: "bold",
                   boxShadow: "none",
                 }}
+                fontWeight="bold"
                 boxShadow="none"
                 onClick={() => navigate("/admin")}
               >
@@ -78,6 +125,7 @@ export function Header() {
               }}
               boxShadow="none"
               bg="transparent"
+              fontWeight="bold"
             >
               Sair {<SignOut size={24} />}
             </MenuItem>
