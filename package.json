@@ -12,9 +12,12 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "framer-motion": "^7.1.0",
+    "husky": "^8.0.1",
     "js-cookie": "^3.0.1",
+    "lint-staged": "^13.0.3",
     "moment": "^2.29.4",
     "phosphor-react": "^1.4.1",
+    "prettier": "^2.7.1",
     "react-cookie": "^4.1.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
@@ -26,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -45,5 +49,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "husky": "^8.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js, jsx}": "prettier --write"
   }
 }
