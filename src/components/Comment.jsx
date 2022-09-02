@@ -45,8 +45,9 @@ export function Comment({
       console.log(err);
     }
   };
+
   const verifyUserId = user?.id === userId;
-  console.log(verifyUserId);
+
   return (
     <div key={id} className={styles.comment}>
       <Avatar verifyUserId={verifyUserId} />
