@@ -9,6 +9,7 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
+  Flex,
 } from "@chakra-ui/react";
 import { Input } from "../components/Form/Input";
 import { AuthContext } from "../contexts/AuthContext";
@@ -16,7 +17,19 @@ import { useContext, useState } from "react";
 import { updateUser, deleteUser } from "../service/userService";
 import { toast } from "react-toastify";
 import moment from "moment";
-function Card({ id, name, email, profession, created_at, updatingStateUsers }) {
+import { useNavigate } from "react-router-dom";
+import { FilterContext } from "../contexts/FilterContext";
+function Card({
+  id,
+  name,
+  email,
+  profession,
+  created_at,
+  updatingStateUsers,
+  isTrue,
+}) {
+  const navigate = useNavigate();
+  const { setUserFiltered } = useContext(FilterContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { signOutUser, fetchUser } = useContext(AuthContext);
   const [namee, setNamee] = useState(name);
@@ -27,7 +40,6 @@ function Card({ id, name, email, profession, created_at, updatingStateUsers }) {
 
   const handleDeleteUser = async (e) => {
     e.preventDefault();
-
     try {
       if (id) {
         await deleteUser(id);
@@ -45,6 +57,18 @@ function Card({ id, name, email, profession, created_at, updatingStateUsers }) {
         autoClose: 2000,
       });
     }
+  };
+
+  const userFiltered = () => {
+    setUserFiltered({
+      id: id,
+      name: name,
+      email: email,
+      profession: profession,
+      created_at: created_at,
+      isTrue: isTrue,
+    });
+    navigate("/userPosts");
   };
 
   const handleUpdateUser = async (e) => {
@@ -96,22 +120,51 @@ function Card({ id, name, email, profession, created_at, updatingStateUsers }) {
       />
       <div className={styles.profile}>
         <strong>{name}</strong>
-        <span>Id: {id}</span>
+        <span>{isTrue ? "" : `Id: ${id}`}</span>
         <span>{profession}</span>
         <span>{email}</span>
-        <span>{moment(created_at).format("D MMMM YYYY, h:mm:ss a")}</span>
+        <span>
+          {isTrue ? "" : moment(created_at).format("D MMMM YYYY, h:mm:ss a")}
+        </span>
       </div>
       <footer className={styles.footer}>
-        <Button
-          colorScheme="blue"
-          onClick={onOpen}
-          gap="1rem"
-          //  className={styles.buttonChakra}
-        >
-          {" "}
-          <PencilLine size={20} />
-          Editar usuário
-        </Button>
+        {isTrue ? (
+          <Button
+            colorScheme="blue"
+            onClick={userFiltered}
+            gap="1rem"
+            //  className={styles.buttonChakra}
+          >
+            {" "}
+            {/* <PencilLine size={20} /> */}
+            Ver Publicações
+          </Button>
+        ) : (
+          <Flex display="flex" flexDir="column">
+            <Button
+              colorScheme="blue"
+              onClick={onOpen}
+              gap="1rem"
+              //  className={styles.buttonChakra}
+            >
+              {" "}
+              <PencilLine size={20} />
+              Editar usuário
+            </Button>
+            <Button
+              colorScheme="red"
+              onClick={handleDeleteUser}
+              //  className={styles.buttonChakra}
+              gap="1rem"
+              mt="0.25rem"
+            >
+              {" "}
+              <Trash size={20} />
+              Deletar usuário
+            </Button>
+          </Flex>
+        )}
+
         <Modal isOpen={isOpen} onClose={onClose}>
           {/* <ModalOverlay /> */}
           <ModalContent bg={"#202024"} alignItems={"center"} gap={2}>
@@ -182,17 +235,6 @@ function Card({ id, name, email, profession, created_at, updatingStateUsers }) {
             </ModalFooter>
           </ModalContent>
         </Modal>
-        <Button
-          colorScheme="red"
-          onClick={handleDeleteUser}
-          //  className={styles.buttonChakra}
-          gap="1rem"
-          mt="0.25rem"
-        >
-          {" "}
-          <Trash size={20} />
-          Deletar usuário
-        </Button>
       </footer>
     </div>
   );
