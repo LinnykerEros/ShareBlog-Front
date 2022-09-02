@@ -6,17 +6,22 @@ import { AuthProvider } from "./contexts/AuthContext.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { theme } from "./styles/theme";
+import { FilterProvider } from "./contexts/FilterContext.jsx";
+import { Header } from "./components/Header.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuthProvider>
-    <ChakraProvider theme={theme}>
-      <React.StrictMode>
-        <App />
-        {/* <SignIn /> */}
-        <ToastContainer />
-      </React.StrictMode>
-    </ChakraProvider>
+    <FilterProvider>
+      <ChakraProvider theme={theme}>
+        <React.StrictMode>
+          <App />
+
+          {/* <SignIn /> */}
+          <ToastContainer />
+        </React.StrictMode>
+      </ChakraProvider>
+    </FilterProvider>
   </AuthProvider>
 );
 
