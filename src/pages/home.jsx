@@ -15,7 +15,7 @@ function Home() {
   const token = Cookies.get("reactauth.token");
   const { user } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
-  // console.log(token);
+
   async function fetchPosts() {
     const data = await getPosts();
     return setPosts(data);
@@ -34,6 +34,7 @@ function Home() {
   return (
     <div className="App">
       <Header />
+
       <div className={styles.wrapper}>
         <SideBar userId={user?.id} updatingState={fetchPosts} />
 

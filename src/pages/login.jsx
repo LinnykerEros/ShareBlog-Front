@@ -2,8 +2,8 @@ import { Flex, Button, Stack, Text } from "@chakra-ui/react";
 import { Input } from "../components/Form/Input";
 
 import { useNavigate } from "react-router-dom";
-
-import { useContext, useState } from "react";
+import { getUser } from "../service/userService";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import logoShareBlog from "../assets/logoShareBlog.png";
 function SignIn() {
