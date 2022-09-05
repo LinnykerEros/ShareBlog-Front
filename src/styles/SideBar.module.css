@@ -29,6 +29,10 @@
   line-height: 1.6;
 }
 
+.span {
+  padding-bottom: 2rem;
+}
+
 .footer {
   border-top: 1px solid var(--gray-600);
   margin-top: 1.5rem;

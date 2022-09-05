@@ -21,9 +21,9 @@
   margin-left: 1rem;
   cursor: pointer;
 }
-.header a {
+/* .header a {
   margin-left: 10px;
-}
+} */
 .header a:hover {
   cursor: pointer;
   border-bottom: 3px solid #3182ce;
