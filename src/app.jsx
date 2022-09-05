@@ -9,17 +9,19 @@ import { FilterProvider } from "./contexts/FilterContext";
 import SearchUser from "./pages/searchUser";
 import { Header } from "./components/Header";
 import { UserPosts } from "./pages/userPosts";
+
 function App() {
   return (
     <Router>
       <AuthProvider>
         <FilterProvider>
           <Header />
+
           <Routes>
             <Route path="/" element={<SignIn />} exact />
             <Route path="/register" element={<Register />} />
             <Route path="/userLogedPosts" element={<UserLogedPosts />} />
-            <Route path="/userPosts" element={<UserPosts />} />
+            <Route path="/userPosts/:id" element={<UserPosts />} />
             <Route path="/searchUser" element={<SearchUser />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/app" element={<Home />} />
