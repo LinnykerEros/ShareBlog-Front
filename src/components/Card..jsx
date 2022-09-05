@@ -9,7 +9,7 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
-  Flex,
+  Flex
 } from "@chakra-ui/react";
 import { Input } from "../components/Form/Input";
 import { AuthContext } from "../contexts/AuthContext";
@@ -26,7 +26,7 @@ function Card({
   profession,
   created_at,
   updatingStateUsers,
-  isTrue,
+  isTrue
 }) {
   const navigate = useNavigate();
   const { setUserFiltered } = useContext(FilterContext);
@@ -38,7 +38,7 @@ function Card({
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
 
-  const handleDeleteUser = async (e) => {
+  const handleDeleteUser = async e => {
     e.preventDefault();
     try {
       if (id) {
@@ -46,7 +46,7 @@ function Card({
         toast.success(
           "Usuário deletado com sucesso!",
           {
-            autoClose: 2000,
+            autoClose: 2000
           },
           onClose(),
           updatingStateUsers()
@@ -54,24 +54,12 @@ function Card({
       }
     } catch (err) {
       toast.error(err.response.data.message, {
-        autoClose: 2000,
+        autoClose: 2000
       });
     }
   };
 
-  const userFiltered = () => {
-    setUserFiltered({
-      id: id,
-      name: name,
-      email: email,
-      profession: profession,
-      created_at: created_at,
-      isTrue: isTrue,
-    });
-    navigate("/userPosts");
-  };
-
-  const handleUpdateUser = async (e) => {
+  const handleUpdateUser = async e => {
     e.preventDefault();
 
     try {
@@ -81,14 +69,14 @@ function Card({
           toast.success(
             "Usuário atualizado com sucesso, você será deslogado!",
             {
-              autoClose: 2000,
+              autoClose: 2000
             },
             onClose(),
             setTimeout(signOutUser, 3000)
           );
         } else {
           toast.error("Verifique a senha e tente novamente!", {
-            autoClose: 2000,
+            autoClose: 2000
           });
         }
       } else {
@@ -96,7 +84,7 @@ function Card({
         toast.success(
           "Usuário atualizado com sucesso",
           {
-            autoClose: 2000,
+            autoClose: 2000
           },
           onClose()
         );
@@ -131,7 +119,7 @@ function Card({
         {isTrue ? (
           <Button
             colorScheme="blue"
-            onClick={userFiltered}
+            onClick={() => navigate(`/userPosts/${id}`)}
             gap="1rem"
             //  className={styles.buttonChakra}
           >
@@ -175,7 +163,7 @@ function Card({
               label={"Nome"}
               width={"80%"}
               ml={12}
-              onChange={(e) => {
+              onChange={e => {
                 setNamee(e.target.value);
               }}
             />
@@ -185,7 +173,7 @@ function Card({
               label={"Profissão"}
               width={"80%"}
               ml={12}
-              onChange={(e) => {
+              onChange={e => {
                 setRole(e.target.value);
               }}
             />
@@ -195,7 +183,7 @@ function Card({
               label={"E-mail"}
               width={"80%"}
               ml={12}
-              onChange={(e) => {
+              onChange={e => {
                 setEmaill(e.target.value);
               }}
             />
@@ -205,7 +193,7 @@ function Card({
               label={"Senha"}
               width={"80%"}
               ml={12}
-              onChange={(e) => {
+              onChange={e => {
                 setPassword(e.target.value);
               }}
             />
@@ -215,7 +203,7 @@ function Card({
               label={"Confirme Senha"}
               width={"80%"}
               ml={12}
-              onChange={(e) => {
+              onChange={e => {
                 setConfirmPassword(e.target.value);
               }}
             />
