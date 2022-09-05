@@ -6,7 +6,7 @@ import { autoResize } from "../utils/autoResize";
 export function CreatePost({ author, profession, userID, updatingState }) {
   const [contentPost, setContentPost] = useState("");
 
-  const handleCreateNewPost = async (e) => {
+  const handleCreateNewPost = async e => {
     e.preventDefault();
     try {
       await createPost(contentPost, userID);
@@ -23,13 +23,7 @@ export function CreatePost({ author, profession, userID, updatingState }) {
     <article className={styles.createPost}>
       <header>
         <div className={styles.author}>
-          <Avatar
-            verifyUserId
-            hasBorder
-            image={
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
-            }
-          />
+          <Avatar verifyUserId hasBorder />
 
           <div className={styles.authorInfo}>
             <strong>{author}</strong>
@@ -45,7 +39,7 @@ export function CreatePost({ author, profession, userID, updatingState }) {
             name="comment"
             placeholder="Faça uma publicação"
             value={contentPost}
-            onChange={(e) => setContentPost(e.target.value)}
+            onChange={e => setContentPost(e.target.value)}
             onKeyDown={autoResize("createPost")}
             required
           />
