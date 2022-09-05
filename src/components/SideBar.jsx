@@ -9,7 +9,7 @@ import {
   ModalFooter,
   ModalCloseButton,
   useDisclosure,
-  Button,
+  Button
 } from "@chakra-ui/react";
 import { Input } from "../components/Form/Input";
 import { Avatar } from "./Avatar";
@@ -30,14 +30,15 @@ export function SideBar({ updatingState, userId }) {
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
 
-  // console.log(user);
+  console.log(userId);
   useEffect(() => {
     const token = Cookies.get("reactauth.token");
     (async () => {
       if (token) {
         const id = parseJwt(token).id;
         // console.log(id);
-        const users = await getUserById(id);
+        const users = await getUserById(userId ? userId : id);
+        console.log(users);
         setName(users.name);
         setEmail(users.email);
         setProfession(users.profession);
@@ -45,7 +46,7 @@ export function SideBar({ updatingState, userId }) {
     })();
   }, []);
 
-  const handleUpdateUser = async (e) => {
+  const handleUpdateUser = async e => {
     e.preventDefault();
 
     try {
@@ -55,14 +56,14 @@ export function SideBar({ updatingState, userId }) {
           toast.success(
             "Usuário atualizado com sucesso, você será deslogado!",
             {
-              autoClose: 2000,
+              autoClose: 2000
             },
             onClose(),
             setTimeout(signOutUser, 3000)
           );
         } else {
           toast.error("Verifique a senha e tente novamente!", {
-            autoClose: 2000,
+            autoClose: 2000
           });
         }
       } else {
@@ -70,7 +71,7 @@ export function SideBar({ updatingState, userId }) {
         toast.success(
           "Usuário atualizado com sucesso",
           {
-            autoClose: 2000,
+            autoClose: 2000
           },
           onClose()
         );
@@ -95,91 +96,95 @@ export function SideBar({ updatingState, userId }) {
       <div className={styles.profile}>
         <Avatar verifyUserId={verifyUserId} hasBorder />
 
-        <strong>{user?.name}</strong>
-        <span>{user?.profession}</span>
+        <strong>{name}</strong>
+        <span>{profession}</span>
       </div>
-      <footer className={styles.footer}>
-        <Button
-          colorScheme="blue"
-          onClick={onOpen}
-          className={styles.buttonChakra}
-        >
-          {" "}
-          <PencilLine size={20} />
-          Editar seu perfil
-        </Button>
+      {verifyUserId ? (
+        <footer className={styles.footer}>
+          <Button
+            colorScheme="blue"
+            onClick={onOpen}
+            className={styles.buttonChakra}
+          >
+            {" "}
+            <PencilLine size={20} />
+            Editar seu perfil
+          </Button>
 
-        <Modal isOpen={isOpen} onClose={onClose}>
-          {/* <ModalOverlay /> */}
-          <ModalContent bg={"#202024"} alignItems={"center"} gap={2}>
-            <ModalHeader> Editar seu perfil</ModalHeader>
-            <Input
-              defaultValue={name}
-              name={"name"}
-              label={"Nome"}
-              width={"80%"}
-              ml={12}
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-            />
-            <Input
-              defaultValue={profession}
-              name={"profession"}
-              label={"Profissão"}
-              width={"80%"}
-              ml={12}
-              onChange={(e) => {
-                setProfession(e.target.value);
-              }}
-            />
-            <Input
-              defaultValue={email}
-              name={"email"}
-              label={"E-mail"}
-              width={"80%"}
-              ml={12}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-            />
-            <Input
-              type="password"
-              name={"password"}
-              label={"Senha"}
-              width={"80%"}
-              ml={12}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
-            <Input
-              type="password"
-              name={"confirmPassword"}
-              label={"Confirme Senha"}
-              width={"80%"}
-              ml={12}
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-              }}
-            />
-            <ModalCloseButton />
+          <Modal isOpen={isOpen} onClose={onClose}>
+            {/* <ModalOverlay /> */}
+            <ModalContent bg={"#202024"} alignItems={"center"} gap={2}>
+              <ModalHeader> Editar seu perfil</ModalHeader>
+              <Input
+                defaultValue={name}
+                name={"name"}
+                label={"Nome"}
+                width={"80%"}
+                ml={12}
+                onChange={e => {
+                  setName(e.target.value);
+                }}
+              />
+              <Input
+                defaultValue={profession}
+                name={"profession"}
+                label={"Profissão"}
+                width={"80%"}
+                ml={12}
+                onChange={e => {
+                  setProfession(e.target.value);
+                }}
+              />
+              <Input
+                defaultValue={email}
+                name={"email"}
+                label={"E-mail"}
+                width={"80%"}
+                ml={12}
+                onChange={e => {
+                  setEmail(e.target.value);
+                }}
+              />
+              <Input
+                type="password"
+                name={"password"}
+                label={"Senha"}
+                width={"80%"}
+                ml={12}
+                onChange={e => {
+                  setPassword(e.target.value);
+                }}
+              />
+              <Input
+                type="password"
+                name={"confirmPassword"}
+                label={"Confirme Senha"}
+                width={"80%"}
+                ml={12}
+                onChange={e => {
+                  setConfirmPassword(e.target.value);
+                }}
+              />
+              <ModalCloseButton />
 
-            <ModalFooter>
-              <Button colorScheme="red" mr={3} onClick={onClose}>
-                Close
-              </Button>
-              <Button
-                colorScheme="blue"
-                onClick={handleUpdateUser}
-                // variant="ghost"
-              >
-                Aplicar alterações
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </footer>
+              <ModalFooter>
+                <Button colorScheme="red" mr={3} onClick={onClose}>
+                  Close
+                </Button>
+                <Button
+                  colorScheme="blue"
+                  onClick={handleUpdateUser}
+                  // variant="ghost"
+                >
+                  Aplicar alterações
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+        </footer>
+      ) : (
+        ""
+      )}
     </aside>
   );
 }
