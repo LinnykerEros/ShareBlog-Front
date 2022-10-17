@@ -1,7 +1,14 @@
 # ShareBlog
 
-Primeiro baixe as dependências do projeto
+## Passo inicial
+Crie um arquivo .env.local na pasta raiz do projeto com o seguite conteúdo:
+```bash
+REACT_APP_URL_API="link da sua API do BACK"
+```
+Agora baixe as dependências do projeto
 #### `npm install`
+
+Em seguida execute o back: [Link do repositório do back](https://github.com/LinnykerEros/ShareBlog-API)
 
 Para rodar o projeto
 ### `npm start`
